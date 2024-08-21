@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pixabay_app/application/home/home_bloc.dart';
 import 'package:flutter_pixabay_app/injection.dart';
 import 'package:flutter_pixabay_app/presentation/core/colors.dart';
-import 'package:flutter_pixabay_app/presentation/core/font_styles.dart';
 import 'package:flutter_pixabay_app/presentation/home/widgets/home_grid_item_view.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,22 +33,14 @@ class HomeScreenContent extends StatelessWidget {
           child: BlocConsumer<HomeBloc, HomeState>(
             listener: (context, state) {},
             builder: (context, state) {
-              if (state.isLoading) {
+              if (state.isInitialLoading) {
                 return const Center(
                   child: CircularProgressIndicator(strokeWidth: 0.5),
                 );
               }
 
-              if (state.failure != null) {
-                return Center(
-                  child: Text(
-                    'Something went wrong...',
-                    style: bodyTextStyle,
-                  ),
-                );
-              }
-
               return GridView.builder(
+                controller: state.scrollController,
                 padding: const EdgeInsets.all(0),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
@@ -62,6 +53,7 @@ class HomeScreenContent extends StatelessWidget {
                   var item = state.response.images[index];
 
                   return HomeGridItemView(
+                    key: ValueKey(item.id),
                     item: item,
                   );
                 },

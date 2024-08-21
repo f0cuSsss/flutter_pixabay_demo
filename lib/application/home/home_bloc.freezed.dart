@@ -222,11 +222,12 @@ abstract class GetList implements HomeEvent {
 mixin _$HomeState {
   HomeGetImagesResponse get response => throw _privateConstructorUsedError;
   HomeGetImagesFilters get filter => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
   bool get isInitialLoading => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
-  bool get stopLazyLoading => throw _privateConstructorUsedError;
   ServerFailure? get failure => throw _privateConstructorUsedError;
   bool get refresher => throw _privateConstructorUsedError;
+  ScrollController get scrollController => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HomeStateCopyWith<HomeState> get copyWith =>
@@ -241,11 +242,12 @@ abstract class $HomeStateCopyWith<$Res> {
   $Res call(
       {HomeGetImagesResponse response,
       HomeGetImagesFilters filter,
+      int currentPage,
       bool isInitialLoading,
       bool isLoading,
-      bool stopLazyLoading,
       ServerFailure? failure,
-      bool refresher});
+      bool refresher,
+      ScrollController scrollController});
 
   $ServerFailureCopyWith<$Res>? get failure;
 }
@@ -265,11 +267,12 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   $Res call({
     Object? response = null,
     Object? filter = null,
+    Object? currentPage = null,
     Object? isInitialLoading = null,
     Object? isLoading = null,
-    Object? stopLazyLoading = null,
     Object? failure = freezed,
     Object? refresher = null,
+    Object? scrollController = null,
   }) {
     return _then(_value.copyWith(
       response: null == response
@@ -280,6 +283,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as HomeGetImagesFilters,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
       isInitialLoading: null == isInitialLoading
           ? _value.isInitialLoading
           : isInitialLoading // ignore: cast_nullable_to_non_nullable
@@ -287,10 +294,6 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      stopLazyLoading: null == stopLazyLoading
-          ? _value.stopLazyLoading
-          : stopLazyLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       failure: freezed == failure
           ? _value.failure
@@ -300,6 +303,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.refresher
           : refresher // ignore: cast_nullable_to_non_nullable
               as bool,
+      scrollController: null == scrollController
+          ? _value.scrollController
+          : scrollController // ignore: cast_nullable_to_non_nullable
+              as ScrollController,
     ) as $Val);
   }
 
@@ -327,11 +334,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
   $Res call(
       {HomeGetImagesResponse response,
       HomeGetImagesFilters filter,
+      int currentPage,
       bool isInitialLoading,
       bool isLoading,
-      bool stopLazyLoading,
       ServerFailure? failure,
-      bool refresher});
+      bool refresher,
+      ScrollController scrollController});
 
   @override
   $ServerFailureCopyWith<$Res>? get failure;
@@ -350,11 +358,12 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? response = null,
     Object? filter = null,
+    Object? currentPage = null,
     Object? isInitialLoading = null,
     Object? isLoading = null,
-    Object? stopLazyLoading = null,
     Object? failure = freezed,
     Object? refresher = null,
+    Object? scrollController = null,
   }) {
     return _then(_$HomeStateImpl(
       response: null == response
@@ -365,6 +374,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
               as HomeGetImagesFilters,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
       isInitialLoading: null == isInitialLoading
           ? _value.isInitialLoading
           : isInitialLoading // ignore: cast_nullable_to_non_nullable
@@ -372,10 +385,6 @@ class __$$HomeStateImplCopyWithImpl<$Res>
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
-              as bool,
-      stopLazyLoading: null == stopLazyLoading
-          ? _value.stopLazyLoading
-          : stopLazyLoading // ignore: cast_nullable_to_non_nullable
               as bool,
       failure: freezed == failure
           ? _value.failure
@@ -385,6 +394,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value.refresher
           : refresher // ignore: cast_nullable_to_non_nullable
               as bool,
+      scrollController: null == scrollController
+          ? _value.scrollController
+          : scrollController // ignore: cast_nullable_to_non_nullable
+              as ScrollController,
     ));
   }
 }
@@ -395,30 +408,33 @@ class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
       {required this.response,
       required this.filter,
+      required this.currentPage,
       required this.isInitialLoading,
       required this.isLoading,
-      required this.stopLazyLoading,
       required this.failure,
-      required this.refresher});
+      required this.refresher,
+      required this.scrollController});
 
   @override
   final HomeGetImagesResponse response;
   @override
   final HomeGetImagesFilters filter;
   @override
+  final int currentPage;
+  @override
   final bool isInitialLoading;
   @override
   final bool isLoading;
   @override
-  final bool stopLazyLoading;
-  @override
   final ServerFailure? failure;
   @override
   final bool refresher;
+  @override
+  final ScrollController scrollController;
 
   @override
   String toString() {
-    return 'HomeState(response: $response, filter: $filter, isInitialLoading: $isInitialLoading, isLoading: $isLoading, stopLazyLoading: $stopLazyLoading, failure: $failure, refresher: $refresher)';
+    return 'HomeState(response: $response, filter: $filter, currentPage: $currentPage, isInitialLoading: $isInitialLoading, isLoading: $isLoading, failure: $failure, refresher: $refresher, scrollController: $scrollController)';
   }
 
   @override
@@ -429,20 +445,22 @@ class _$HomeStateImpl implements _HomeState {
             (identical(other.response, response) ||
                 other.response == response) &&
             (identical(other.filter, filter) || other.filter == filter) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
             (identical(other.isInitialLoading, isInitialLoading) ||
                 other.isInitialLoading == isInitialLoading) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
-            (identical(other.stopLazyLoading, stopLazyLoading) ||
-                other.stopLazyLoading == stopLazyLoading) &&
             (identical(other.failure, failure) || other.failure == failure) &&
             (identical(other.refresher, refresher) ||
-                other.refresher == refresher));
+                other.refresher == refresher) &&
+            (identical(other.scrollController, scrollController) ||
+                other.scrollController == scrollController));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, response, filter,
-      isInitialLoading, isLoading, stopLazyLoading, failure, refresher);
+  int get hashCode => Object.hash(runtimeType, response, filter, currentPage,
+      isInitialLoading, isLoading, failure, refresher, scrollController);
 
   @JsonKey(ignore: true)
   @override
@@ -455,26 +473,29 @@ abstract class _HomeState implements HomeState {
   const factory _HomeState(
       {required final HomeGetImagesResponse response,
       required final HomeGetImagesFilters filter,
+      required final int currentPage,
       required final bool isInitialLoading,
       required final bool isLoading,
-      required final bool stopLazyLoading,
       required final ServerFailure? failure,
-      required final bool refresher}) = _$HomeStateImpl;
+      required final bool refresher,
+      required final ScrollController scrollController}) = _$HomeStateImpl;
 
   @override
   HomeGetImagesResponse get response;
   @override
   HomeGetImagesFilters get filter;
   @override
+  int get currentPage;
+  @override
   bool get isInitialLoading;
   @override
   bool get isLoading;
   @override
-  bool get stopLazyLoading;
-  @override
   ServerFailure? get failure;
   @override
   bool get refresher;
+  @override
+  ScrollController get scrollController;
   @override
   @JsonKey(ignore: true)
   _$$HomeStateImplCopyWith<_$HomeStateImpl> get copyWith =>
