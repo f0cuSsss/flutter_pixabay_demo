@@ -5,10 +5,10 @@ import 'presentation/home/home_screen.dart';
 class PixabayApp extends StatelessWidget {
   const PixabayApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pixabay App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
