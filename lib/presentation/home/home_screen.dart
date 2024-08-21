@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pixabay_app/application/home/home_bloc.dart';
 import 'package:flutter_pixabay_app/injection.dart';
 import 'package:flutter_pixabay_app/presentation/core/colors.dart';
+import 'package:flutter_pixabay_app/presentation/core/font_styles.dart';
 import 'package:flutter_pixabay_app/presentation/home/widgets/home_grid_item_view.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,6 +21,10 @@ class HomeScreen extends StatelessWidget {
 class HomeScreenContent extends StatelessWidget {
   const HomeScreenContent({super.key});
 
+  onSearchTextChanged(BuildContext context, String text) {
+    context.read<HomeBloc>().add(SearchTextChanged(text));
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -27,6 +32,25 @@ class HomeScreenContent extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: kBackground,
+      appBar: AppBar(
+        title: const Center(child: Text('Pixabay')),
+        actions: <Widget>[
+          SizedBox(
+            width: MediaQuery.of(context).size.width *
+                0.7, // Adjust width as needed
+            child: TextField(
+              controller:
+                  context.read<HomeBloc>().state.searchEditingController,
+              decoration: const InputDecoration(
+                hintText: 'Search...',
+                border: InputBorder.none,
+                prefixIcon: Icon(Icons.search),
+              ),
+              onChanged: (value) => onSearchTextChanged(context, value),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -36,6 +60,15 @@ class HomeScreenContent extends StatelessWidget {
               if (state.isInitialLoading) {
                 return const Center(
                   child: CircularProgressIndicator(strokeWidth: 0.5),
+                );
+              }
+
+              if (state.response.images.isEmpty) {
+                return Center(
+                  child: Text(
+                    'Images not found :(',
+                    style: bodyTextStyle,
+                  ),
                 );
               }
 

@@ -11,6 +11,7 @@ class HomeState with _$HomeState {
     required ServerFailure? failure,
     required bool refresher,
     required ScrollController scrollController,
+    required TextEditingController searchEditingController,
   }) = _HomeState;
 
   factory HomeState.initial() => HomeState(
@@ -22,5 +23,6 @@ class HomeState with _$HomeState {
         failure: null,
         refresher: false,
         scrollController: ScrollController(),
+        searchEditingController: TextEditingController(),
       );
 }

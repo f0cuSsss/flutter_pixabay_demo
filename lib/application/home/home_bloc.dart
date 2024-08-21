@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pixabay_app/domain/core/server_failure.dart';
@@ -14,8 +16,12 @@ part 'home_bloc.freezed.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final IHomeFacade _homeFacade;
 
+  final _debounceDuration = const Duration(milliseconds: 500);
+  Timer? _debounce;
+
   HomeBloc(this._homeFacade) : super(HomeState.initial()) {
     on<GetList>(getList);
+    on<SearchTextChanged>(searchTextChanged);
 
     state.scrollController.addListener(() {
       final scrollPosition = state.scrollController.position;
@@ -74,5 +80,22 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
 
     emit(state.copyWith(isLoading: false));
+  }
+
+  searchTextChanged(SearchTextChanged event, Emitter<HomeState> emit) {
+    _debounce?.cancel();
+
+    emit(state.copyWith(filter: HomeGetImagesFilters(event.text)));
+
+    _debounce = Timer(_debounceDuration, () {
+      add(const GetList(reset: true));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    state.scrollController.dispose();
+    state.searchEditingController.dispose();
+    return super.close();
   }
 }
