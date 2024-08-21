@@ -62,9 +62,7 @@ class HomeScreenContent extends StatelessWidget {
                   var item = state.response.images[index];
 
                   return HomeGridItemView(
-                    imagePath: item.webformatURL,
-                    viewsAmount: item.views,
-                    likesAmount: item.likes,
+                    item: item,
                   );
                 },
               );
